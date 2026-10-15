@@ -8,6 +8,8 @@ pyvenv.cfg
 .env
 company.json
 index.json
+leads.jsonl
+index.json.tmp
 
 # Knowledge: ignore your real files, keep only the README and the examples
 knowledge/*
