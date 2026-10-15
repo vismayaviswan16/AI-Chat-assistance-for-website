@@ -4,21 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- FILL IN: your page title -->
-  <title>My Website</title>
+  <title>Chat Assistant</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div id="hc-widget-root">
   <!-- OPTIONAL: change aria-label if you want the screen-reader text to name your company -->
-  <button id="hc-launcher" aria-label="Open chat">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#241a0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <button id="hc-launcher" type="button" aria-label="Open chat" aria-expanded="false" aria-controls="hc-panel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#241a0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
     </svg>
   </button>
 
-  <div id="hc-panel">
+  <div id="hc-panel" role="dialog" aria-label="Chat assistant">
     <div id="hc-header">
-      <div id="hc-header-hex"></div>
+      <div id="hc-header-hex" aria-hidden="true"></div>
       <div id="hc-header-text">
         <!-- The company name below is replaced automatically from company.json.
              FILL IN (optional): change "Chat with us" as the fallback text. -->
@@ -26,14 +27,21 @@
         <!-- FILL IN: your subtitle -->
         <p>Ask us about our services</p>
       </div>
-      <button id="hc-close" aria-label="Close chat">&times;</button>
+      <button id="hc-close" type="button" aria-label="Close chat">&times;</button>
     </div>
-    <div id="hc-messages"></div>
+
+    <!-- aria-live makes screen readers announce new replies -->
+    <div id="hc-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+    <!-- FILL IN: adjust this privacy note to match your policy -->
+    <p id="hc-note">Please don't share sensitive information. If you share your email, we'll use it only to contact you about your enquiry.</p>
+
     <div id="hc-input-row">
       <!-- FILL IN: your placeholder text -->
-      <input id="hc-input" type="text" placeholder="Ask about our services..." />
-      <button id="hc-send" aria-label="Send message">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#241a0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <input id="hc-input" type="text" placeholder="Ask about our services..."
+             aria-label="Type your message" maxlength="500" autocomplete="off" />
+      <button id="hc-send" type="button" aria-label="Send message">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#241a0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="22" y1="2" x2="11" y2="13"/>
           <polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
@@ -41,6 +49,7 @@
     </div>
   </div>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>
