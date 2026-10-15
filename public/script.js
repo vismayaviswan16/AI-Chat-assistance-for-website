@@ -1,10 +1,19 @@
 (function () {
 
-  // API CONFIGURATION
-  
+  // ====================================================================
+  // >>> FILL IN: YOUR BACKEND URL <<<
+  // While testing on your own computer, leave this as it is.
+  // When you deploy the backend (server.py) online, replace it with
+  // your server's address, e.g. 'https://chat.yourwebsite.com'
+  // (no slash at the end).
+  // ====================================================================
+  const API_BASE = 'http://127.0.0.1:3000';
 
-  const API_URL = 'http://127.0.0.1:3000/api/chat';
-  const LEAD_API_URL = 'http://127.0.0.1:3000/api/lead';
+  // API CONFIGURATION (no need to edit these three lines)
+
+  const API_URL = API_BASE + '/api/chat';
+  const LEAD_API_URL = API_BASE + '/api/lead';
+  const CONFIG_URL = API_BASE + '/api/config';
 
   // DOM ELEMENTS
 
@@ -15,6 +24,7 @@
   const messagesEl = document.getElementById('hc-messages');
   const input = document.getElementById('hc-input');
   const sendBtn = document.getElementById('hc-send');
+  const headerTitle = document.getElementById('hc-header-title');
 
 
   // CHAT STATE
@@ -25,6 +35,54 @@
 
   // Prevent duplicate lead submissions
   const savedEmails = new Set();
+
+
+  // ====================================================================
+  // SITE CONFIG
+  // Your company name, greeting and contact details are normally loaded
+  // from company.json (edit that file, not this one).
+  //
+  // >>> OPTIONAL: FILL IN the fallback values below <<<
+  // They are only shown if the backend can't be reached, so a visitor
+  // still sees a way to contact you when the chatbot is offline.
+  // ====================================================================
+
+  let siteConfig = {
+    company_name: '',                      // OPTIONAL: your company name
+    greeting: 'Hi! How can I help you?',   // OPTIONAL: fallback greeting
+    contact_email: '',                     // OPTIONAL: e.g. 'contact@yourcompany.com'
+    contact_phone: ''                      // OPTIONAL: e.g. '+00 000 000 0000'
+  };
+
+  fetch(CONFIG_URL)
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (cfg) {
+
+      siteConfig = Object.assign(siteConfig, cfg);
+
+      if (headerTitle && siteConfig.company_name) {
+        headerTitle.textContent = siteConfig.company_name;
+      }
+
+    })
+    .catch(function (error) {
+      console.log('Could not load site config, using defaults:', error);
+    });
+
+
+  // CONTACT TEXT USED IN ERROR MESSAGES
+
+  function contactText() {
+
+    const parts = [
+      siteConfig.contact_email,
+      siteConfig.contact_phone
+    ].filter(Boolean);
+
+    return parts.length ? parts.join(' or ') : 'our team';
+  }
 
 
   // ADD MESSAGE TO CHAT
@@ -55,7 +113,7 @@
 
       appendMessage(
         'assistant',
-        "Hi! I'm Honeycomb's assistant. Ask me about our services,portfolio,FAQs — or how to get in touch."
+        siteConfig.greeting
       );
     }
   }
@@ -118,9 +176,10 @@
           data
         );
 
+        // OPTIONAL: change this thank-you message to match your tone
         appendMessage(
           'assistant',
-          "Thanks! We've received your details. The Honeycomb team will get in touch with you."
+          "Thanks! We've received your details. Our team will get in touch with you."
         );
 
       } else {
@@ -128,6 +187,11 @@
         console.error(
           'Lead save failed:',
           data
+        );
+
+        appendMessage(
+          'assistant',
+          'Sorry, we could not save your details. Please contact ' + contactText() + '.'
         );
 
       }
@@ -220,7 +284,7 @@
 
         appendMessage(
           'assistant',
-          'Sorry, something went wrong. Please try again or email vani@honeycombindia.net.'
+          'Sorry, something went wrong. Please try again or contact ' + contactText() + '.'
         );
 
       }
@@ -236,7 +300,7 @@
 
       appendMessage(
         'assistant',
-        "I couldn't connect just now. Please try again or reach us at +91 90352 90915."
+        "I couldn't connect just now. Please try again or contact " + contactText() + '.'
       );
 
     }
@@ -273,7 +337,7 @@
   // MAKE SAVE LEAD AVAILABLE
 
 
-  window.saveHoneycombLead = saveLead;
+  window.saveLead = saveLead;
 
 
 })();
