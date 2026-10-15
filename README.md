@@ -74,11 +74,11 @@ Open `company.json` and replace every value that follows a `FILL IN` line with y
 
 ### 5. Add your knowledge
 
-Put `.txt` files about your business in the `knowledge/` folder. See `knowledge/README.md` for what to write.
+Create `.txt` files about your business in the `knowledge/` folder. See `knowledge/README.md` for what to write.
 
 - One topic per file (about, services, contact, FAQ, and so on)
 - 100 to 300 words each, written in plain sentences
-- Delete or edit the `example-*.txt` files so the placeholder text isn't used
+- You need at least one `.txt` file before running `embed.py`
 
 ### 6. (Optional) Set up lead emails
 
@@ -141,11 +141,10 @@ The widget on your website needs to reach the backend, so the backend must be ho
 | Problem | Fix |
 |---|---|
 | `index.json not found` | Run `python embed.py` first |
-| `No .txt files found` | Add `.txt` files to the `knowledge/` folder |
+| `No .txt files found` | Create at least one `.txt` file in the `knowledge/` folder |
 | "Something went wrong. Is Ollama running...?" | Start Ollama and make sure both models are pulled |
 | Widget says "I couldn't connect" | Check the server is running and `API_BASE` is correct |
 | Bot ignores your new content | Run `python embed.py` again, then restart `server.py` |
-| Bot uses placeholder text | Delete the `example-*.txt` files and re-run `embed.py` |
 | Lead email not sent | Check `.env` values; Gmail needs an app password |
 | Answers are slow | Use a smaller model, or run Ollama on a machine with a GPU |
 
