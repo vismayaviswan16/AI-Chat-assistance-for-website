@@ -1,4 +1,12 @@
-flask==3.0.3
-flask-cors==4.0.1
-python-dotenv==1.0.1
-ollama>=0.3.0
+# Core
+flask>=3.0
+flask-cors>=4.0
+flask-limiter>=3.5
+python-dotenv>=1.0
+waitress>=3.0
+
+# AI provider SDKs - you only need the ones for the providers you choose in .env.
+# Delete the lines you don't need.
+ollama>=0.5.0      # CHAT_PROVIDER / EMBED_PROVIDER = ollama
+openai>=1.40       # openai, gemini, groq, openrouter, lmstudio, custom (any OpenAI-compatible API)
+anthropic>=0.40    # CHAT_PROVIDER = anthropic (Claude)
