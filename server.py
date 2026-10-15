@@ -352,8 +352,13 @@ def daily_budget_available():
 # Reply generation
 # ---------------------------------------------------------------------------
 def clean_reply(text):
-    """Remove <think>...</think> blocks that some models (e.g. qwen3, deepseek) emit."""
-    return re.sub(r"<think>.*?</think>", "", text or "", flags=re.DOTALL).strip()
+    """Keep only the final answer: strip the reasoning that models like qwen3 and deepseek emit."""
+    text = text or ""
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+    if "</think>" in text:  # opening tag missing: the answer is whatever follows the last closing tag
+        text = text.rsplit("</think>", 1)[1]
+    text = text.split("<think>")[0]  # reasoning that never finished: drop it
+    return text.strip()
 
 
 def generate_reply(message, session):
