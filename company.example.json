@@ -1,0 +1,22 @@
+{
+  "_help_company_name": "FILL IN: your company or brand name",
+  "company_name": "Your Company",
+
+  "_help_description": "FILL IN: one short phrase, e.g. 'a web design agency based in Pune, India'",
+  "description": "a [type of business] based in [city, country]",
+
+  "_help_extra_details": "FILL IN (optional): founding year, office locations, anything the bot should always know. Leave as an empty string to skip.",
+  "extra_details": "Founded in [year]. Offices in [locations].",
+
+  "_help_services": "FILL IN: list each service you offer, one per item. Add or remove items as needed.",
+  "services": ["Service One", "Service Two", "Service Three"],
+
+  "_help_contact_email": "FILL IN: public email shown to visitors when the bot can't answer (leave empty to hide)",
+  "contact_email": "contact@example.com",
+
+  "_help_contact_phone": "FILL IN: public phone number (leave empty to hide)",
+  "contact_phone": "+00 000 000 0000",
+
+  "_help_greeting": "FILL IN: the first message visitors see when they open the chat",
+  "greeting": "Hi! Ask me about our services, or how to get in touch."
+}

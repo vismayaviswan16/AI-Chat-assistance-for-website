@@ -1,0 +1,15 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+pyvenv.cfg
+
+# Private settings and data
+.env
+company.json
+index.json
+
+# Knowledge: ignore your real files, keep only the README and the examples
+knowledge/*
+!knowledge/README.md
+!knowledge/example-*.txt
